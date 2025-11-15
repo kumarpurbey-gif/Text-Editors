@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
+// The bootstrap loader in index.html ensures window.ReactQuill is available.
+const ReactQuill = (window as any).ReactQuill;
 
 const GmailStyleEditor: React.FC = () => {
-  const [ReactQuill, setReactQuill] = useState(() => (window as any).ReactQuill);
-
-  useEffect(() => {
-    if (ReactQuill) return;
-    const interval = setInterval(() => {
-      if ((window as any).ReactQuill) {
-        setReactQuill(() => (window as any).ReactQuill);
-        clearInterval(interval);
-      }
-    }, 100);
-    return () => clearInterval(interval);
-  }, [ReactQuill]);
-
-
   const [value, setValue] = useState(
     `<p>This editor mimics the <strong>Gmail</strong> compose experience.</p><p><br></p><p><u>Simple and clean.</u></p>`
   );
@@ -28,7 +17,7 @@ const GmailStyleEditor: React.FC = () => {
   };
 
   if (!ReactQuill) {
-    return <div>Loading Editor...</div>;
+    return <div>Initializing Editor... This should be brief.</div>;
   }
 
   return (

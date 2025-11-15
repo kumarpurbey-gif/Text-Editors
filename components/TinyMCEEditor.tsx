@@ -1,38 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 declare global {
   interface Window { tinymce: any; }
 }
 
+const tinymce = window.tinymce;
+
 const TinyMCEEditor: React.FC = () => {
   const editorRef = useRef<HTMLTextAreaElement | null>(null);
-  const editorInstance = useRef<any>(null);
-  const [tinymce, setTinymce] = useState(() => window.tinymce);
 
   useEffect(() => {
-    if (tinymce) return;
-    const interval = setInterval(() => {
-        if (window.tinymce) {
-            setTinymce(() => window.tinymce);
-            clearInterval(interval);
-        }
-    }, 100);
-    return () => clearInterval(interval);
-  }, [tinymce]);
+    let editorInstance: any = null;
 
-  useEffect(() => {
-    if (editorRef.current && tinymce && !editorInstance.current) {
+    if (editorRef.current && tinymce) {
       tinymce.init({
-        target: editorRef.current, // Use direct reference instead of selector
+        target: editorRef.current,
         plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        height: '100%', // Fill the container
+        height: '100%',
         resize: false,
         skin: "oxide",
         content_css: "default",
+        promotion: false, // Fix for the "read-only" mode warning in self-hosted versions
       }).then((editors: any[]) => {
           if (editors.length > 0) {
-              editorInstance.current = editors[0];
+              editorInstance = editors[0];
           }
       }).catch((error: any) => {
           console.error("Failed to initialize TinyMCE:", error);
@@ -40,15 +32,15 @@ const TinyMCEEditor: React.FC = () => {
     }
 
     return () => {
-      if (editorInstance.current) {
-        editorInstance.current.remove();
-        editorInstance.current = null;
+      if (editorInstance) {
+        editorInstance.remove();
+        editorInstance = null;
       }
     };
-  }, [tinymce]);
+  }, []);
 
   if (!tinymce) {
-      return <div>Loading TinyMCE...</div>;
+      return <div>Initializing TinyMCE... This should be brief.</div>;
   }
 
   return (
