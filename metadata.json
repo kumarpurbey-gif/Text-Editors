@@ -1,5 +1,5 @@
 {
-  "name": "React Text Editors Showcase",
+  "name": "Text Editors",
   "description": "A web application demonstrating various types of text input and rich text editors in React. Select an editor from the home page to see it in action.",
   "requestFramePermissions": []
 }
