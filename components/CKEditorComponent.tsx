@@ -7,27 +7,31 @@ declare global {
 const CKEditorComponent: React.FC = () => {
     const ClassicEditor = window.ClassicEditor;
     const editorRef = useRef<HTMLDivElement | null>(null);
+    const editorInstanceRef = useRef<any | null>(null); // Ref to hold the editor instance
 
     useEffect(() => {
-        let editor: any = null;
-
-        if (editorRef.current && ClassicEditor) {
+        // Prevent re-initialization if the instance already exists
+        if (editorRef.current && ClassicEditor && !editorInstanceRef.current) {
             ClassicEditor
                 .create(editorRef.current, {
                     toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
                     initialData: '<h2>CKEditor 5</h2><p>This is a classic editor instance created using its CDN build. It offers a robust editing experience out-of-the-box.</p>'
                 })
                 .then((newEditor: any) => {
-                    editor = newEditor;
+                    editorInstanceRef.current = newEditor;
                 })
                 .catch((error: any) => {
                     console.error('There was a problem initializing CKEditor:', error);
                 });
         }
 
+        // Cleanup function
         return () => {
-            if (editor) {
-                editor.destroy()
+            if (editorInstanceRef.current) {
+                editorInstanceRef.current.destroy()
+                    .then(() => {
+                        editorInstanceRef.current = null;
+                    })
                     .catch((error: any) => {
                         console.error('Error destroying CKEditor instance:', error);
                     });
