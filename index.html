@@ -9,10 +9,10 @@
 <script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@19.2.0/with-externals/",
-    "react": "https://aistudiocdn.com/react@19.2.0/with-externals/index.js",
-    "react-dom/": "https://aistudiocdn.com/react-dom@19.2.0/with-externals/",
-    "react-dom/client": "https://aistudiocdn.com/react-dom@19.2.0/with-externals/client.js"
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
   }
 }
 </script>
@@ -38,9 +38,11 @@
 
         (async () => {
             try {
-                // 1. Ensure React is loaded from the importmap. This makes window.React available.
-                await import('react');
-                await import('react-dom/client');
+                // 1. Ensure React is loaded and expose it globally for UMD scripts.
+                const React = await import('react');
+                window.React = React;
+                const ReactDOM = await import('react-dom/client');
+                window.ReactDOM = ReactDOM;
 
                 // 2. Load all CSS and JS dependencies
                 loadCss("https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css");

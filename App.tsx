@@ -33,15 +33,15 @@ const App: React.FC = () => {
             <GDocsStyleEditor />
           </EditorCard>
 
-          <EditorCard title="5a. Draft.js Editor">
+          <EditorCard title="5. Draft.js Editor">
             <DraftJsEditor />
           </EditorCard>
 
-          <EditorCard title="5b. CKEditor 5">
+          <EditorCard title="6. CKEditor 5">
             <CKEditorComponent />
           </EditorCard>
 
-          <EditorCard title="5c. TinyMCE Editor">
+          <EditorCard title="7. TinyMCE Editor">
             <TinyMCEEditor />
           </EditorCard>
 

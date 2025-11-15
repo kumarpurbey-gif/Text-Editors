@@ -1,15 +1,19 @@
-import React, { useState, useRef } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
 
 const DraftJsEditor: React.FC = () => {
-  // The bootstrap loader in index.html ensures window.Draft is available at render time.
-  const { Editor, EditorState, RichUtils, ContentState } = (window as any).Draft || {};
+  const Draft = (window as any).Draft;
+  const { Editor, EditorState, RichUtils, ContentState } = Draft || {};
   const editorRef = useRef<any>(null);
+  const [editorState, setEditorState] = useState<any>(null);
 
-  const [editorState, setEditorState] = useState(() => {
-    if (!EditorState || !ContentState) return null;
-    const initialContent = ContentState.createFromText('This is a Draft.js editor. It provides a powerful framework for building rich text experiences.');
-    return EditorState.createWithContent(initialContent);
-  });
+  // Initialize state only after the library is confirmed to be loaded.
+  useEffect(() => {
+    if (EditorState && ContentState && !editorState) {
+      const initialContent = ContentState.createFromText('This is a Draft.js editor. It provides a powerful framework for building rich text experiences.');
+      setEditorState(EditorState.createWithContent(initialContent));
+    }
+  }, [EditorState, ContentState, editorState]);
 
   const focusEditor = () => {
     editorRef.current?.focus();
@@ -35,7 +39,7 @@ const DraftJsEditor: React.FC = () => {
     setEditorState(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
   };
   
-  if (!Editor || !editorState) {
+  if (!Draft || !editorState) {
     return <div>Initializing Draft.js... This should be brief.</div>;
   }
 
