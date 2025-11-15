@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Text Editors Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React-Quill (for Gmail/GDocs style editors) -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script src="https://unpkg.com/react-quill@2.0.0/dist/react-quill.js"></script>
+
+    <!-- Draft.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/draft-js/0.11.7/Draft.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/draft-js/0.11.7/Draft.min.js"></script>
+
+    <!-- CKEditor 5 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+    <!-- TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/with-externals/",
+    "react": "https://aistudiocdn.com/react@^19.2.0/with-externals",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/with-externals/"
+  }
+}
+</script>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
