@@ -1,5 +1,5 @@
 {
   "name": "React Text Editors Showcase",
-  "description": "A web application demonstrating various types of text input and rich text editors in React, including standard textareas, content-editable divs, and popular libraries like React-Quill, Draft.js, CKEditor, and TinyMCE.",
+  "description": "A web application demonstrating various types of text input and rich text editors in React, including standard textareas, content-editable divs, and popular libraries like React-Quill, CKEditor, and TinyMCE.",
   "requestFramePermissions": []
 }

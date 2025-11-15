@@ -6,7 +6,6 @@ import TextAreaEditor from './components/TextAreaEditor';
 import ContentEditableEditor from './components/ContentEditableEditor';
 import GmailStyleEditor from './components/GmailStyleEditor';
 import GDocsStyleEditor from './components/GDocsStyleEditor';
-import DraftJsEditor from './components/DraftJsEditor';
 import CKEditorComponent from './components/CKEditorComponent';
 import TinyMCEEditor from './components/TinyMCEEditor';
 
@@ -33,15 +32,11 @@ const App: React.FC = () => {
             <GDocsStyleEditor />
           </EditorCard>
 
-          <EditorCard title="5. Draft.js Editor">
-            <DraftJsEditor />
-          </EditorCard>
-
-          <EditorCard title="6. CKEditor 5">
+          <EditorCard title="5. CKEditor 5">
             <CKEditorComponent />
           </EditorCard>
 
-          <EditorCard title="7. TinyMCE Editor">
+          <EditorCard title="6. TinyMCE Editor">
             <TinyMCEEditor />
           </EditorCard>
 

@@ -1,42 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const GmailStyleEditor: React.FC = () => {
-  const ReactQuill = (window as any).ReactQuill;
-  const [value, setValue] = useState(
-    `<p>This editor mimics the <strong>Gmail</strong> compose experience.</p><p><br></p><p><u>Simple and clean.</u></p>`
-  );
+  const Quill = (window as any).Quill;
+  const editorContainerRef = useRef<HTMLDivElement | null>(null);
+  const quillInstance = useRef<any>(null);
 
-  const modules = {
-    toolbar: [
-      ['bold', 'italic', 'underline'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['link'],
-    ],
-  };
+  useEffect(() => {
+    if (Quill && editorContainerRef.current && !quillInstance.current) {
+      quillInstance.current = new Quill(editorContainerRef.current, {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            ['link'],
+          ],
+        },
+      });
+      
+      quillInstance.current.root.innerHTML = `<p>This editor mimics the <strong>Gmail</strong> compose experience.</p><p><br></p><p><u>Simple and clean.</u></p>`;
+    }
+  }, [Quill]);
 
-  if (!ReactQuill) {
+  if (!Quill) {
     return <div>Initializing Editor... This should be brief.</div>;
   }
 
   return (
-    <div style={{ height: '12rem' }} className="react-quill-wrapper">
+    <div style={{ height: '12rem' }} className="quill-manual-wrapper">
       <style>{`
-        .react-quill-wrapper .quill {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        .quill-manual-wrapper .ql-toolbar {
+          border-top-left-radius: 0.375rem;
+          border-top-right-radius: 0.375rem;
+          border-color: #d1d5db;
         }
-        .react-quill-wrapper .ql-container {
-            flex-grow: 1;
-            overflow-y: auto;
+        .quill-manual-wrapper .ql-container {
+          border-bottom-left-radius: 0.375rem;
+          border-bottom-right-radius: 0.375rem;
+          border-color: #d1d5db;
+          height: calc(100% - 42px); /* Adjust based on toolbar height */
+          font-family: inherit;
         }
       `}</style>
-      <ReactQuill 
-        theme="snow" 
-        value={value} 
-        onChange={setValue} 
-        modules={modules}
-      />
+      <div ref={editorContainerRef} style={{height: '100%'}} />
     </div>
   );
 };
