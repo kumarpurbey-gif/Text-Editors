@@ -1,7 +1,6 @@
+import React, { useState } from 'react';
 
-import React from 'react';
-import Header from './components/Header';
-import EditorCard from './components/EditorCard';
+// Editor Components
 import TextAreaEditor from './components/TextAreaEditor';
 import ContentEditableEditor from './components/ContentEditableEditor';
 import GmailStyleEditor from './components/GmailStyleEditor';
@@ -9,42 +8,65 @@ import GDocsStyleEditor from './components/GDocsStyleEditor';
 import CKEditorComponent from './components/CKEditorComponent';
 import TinyMCEEditor from './components/TinyMCEEditor';
 
+// Page Components
+import HomePage from './pages/HomePage';
+import EditorPage from './pages/EditorPage';
+
+export const editors = [
+  {
+    id: 'textarea',
+    title: '1. Simple Text Area',
+    description: 'A standard HTML textarea element.',
+    component: <TextAreaEditor />,
+  },
+  {
+    id: 'contenteditable',
+    title: '2. Content Editable Div',
+    description: 'A div with the contentEditable attribute.',
+    component: <ContentEditableEditor />,
+  },
+  {
+    id: 'gmail',
+    title: '3. Rich Text (Gmail Style)',
+    description: 'A Quill editor with a minimal toolbar.',
+    component: <GmailStyleEditor />,
+  },
+  {
+    id: 'gdocs',
+    title: '4. Editor (Google Docs Style)',
+    description: 'A Quill editor with extensive features.',
+    component: <GDocsStyleEditor />,
+  },
+  {
+    id: 'ckeditor',
+    title: '5. CKEditor 5',
+    description: 'A powerful and modern rich text editor.',
+    component: <CKEditorComponent />,
+  },
+  {
+    id: 'tinymce',
+    title: '6. TinyMCE Editor',
+    description: 'A highly extensible and popular editor.',
+    component: <TinyMCEEditor />,
+  },
+];
+
 const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const selectedEditor = editors.find(e => e.id === currentPage);
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <Header />
-      <main className="container mx-auto p-4 sm:p-6 lg:p-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-          <EditorCard title="1. Simple Text Area">
-            <TextAreaEditor />
-          </EditorCard>
-          
-          <EditorCard title="2. Content Editable Div">
-            <ContentEditableEditor />
-          </EditorCard>
-
-          <EditorCard title="3. Rich Text (Gmail Style)">
-            <GmailStyleEditor />
-          </EditorCard>
-
-          <EditorCard title="4. Editor (Google Docs Style)">
-            <GDocsStyleEditor />
-          </EditorCard>
-
-          <EditorCard title="5. CKEditor 5">
-            <CKEditorComponent />
-          </EditorCard>
-
-          <EditorCard title="6. TinyMCE Editor">
-            <TinyMCEEditor />
-          </EditorCard>
-
-        </div>
-      </main>
-      <footer className="text-center p-4 text-gray-500 text-sm">
-        <p>Showcase of various text editors in React.</p>
-      </footer>
+      {currentPage === 'home' || !selectedEditor ? (
+        <HomePage onNavigate={setCurrentPage} />
+      ) : (
+        <EditorPage
+          title={selectedEditor.title}
+          component={selectedEditor.component}
+          onBack={() => setCurrentPage('home')}
+        />
+      )}
     </div>
   );
 };
