@@ -1,60 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>React Text Editors Showcase</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^18.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^18.2.0/",
+    "react/": "https://aistudiocdn.com/react@^18.2.0/",
+    "vite": "https://aistudiocdn.com/vite@^7.2.2",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "@tailwindcss/typography": "https://aistudiocdn.com/@tailwindcss/typography@^0.5.19",
+    "@ckeditor/ckeditor5-react": "https://aistudiocdn.com/@ckeditor/ckeditor5-react@^6.2.0",
+    "@ckeditor/ckeditor5-build-classic": "https://aistudiocdn.com/@ckeditor/ckeditor5-build-classic@^41.4.2",
+    "quill": "https://aistudiocdn.com/quill@^2.0.2",
+    "quill/": "https://aistudiocdn.com/quill@^2.0.2/",
+    "@tinymce/tinymce-react": "https://aistudiocdn.com/@tinymce/tinymce-react@^6.3.0"
+  }
+}
+</script>
 </head>
-<body class="bg-gray-100">
+  <body class="bg-gray-100">
     <div id="root"></div>
-    <script type="module">
-        const loadScript = (src) => new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.async = false; // Ensure sequential execution for dependencies
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.appendChild(script);
-        });
-
-        const loadCss = (href) => {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = href;
-            document.head.appendChild(link);
-        };
-
-        (async () => {
-            try {
-                // 1. Ensure React is loaded and expose it globally for UMD scripts.
-                const React = await import('react');
-                window.React = React;
-                const ReactDOM = await import('react-dom/client');
-                window.ReactDOM = ReactDOM;
-
-                // 2. Load all CSS and JS dependencies
-                loadCss("https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css");
-                
-                await loadScript("https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js");
-                
-                await loadScript("https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js");
-                await loadScript("https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.2.1/tinymce.min.js");
-
-                // 3. All dependencies are loaded, now start the React app.
-                await import('/index.tsx');
-
-            } catch (error) {
-                console.error("Failed to load application dependencies:", error);
-                const root = document.getElementById('root');
-                if (root) {
-                    root.innerHTML = `<div style="color: red; padding: 20px; text-align: center; font-family: sans-serif;">
-                        <h2>Failed to Load Application</h2>
-                        <p>A required script could not be loaded. Please check the browser console for details and ensure you have an internet connection.</p>
-                    </div>`;
-                }
-            }
-        })();
-    </script>
-</body>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
 </html>
