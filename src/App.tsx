@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Editor Components
 import TextAreaEditor from './components/TextAreaEditor';
@@ -46,8 +46,24 @@ export const editors = [
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200); // Simulate a brief loading period
+    return () => clearTimeout(timer);
+  }, []);
 
   const selectedEditor = editors.find(e => e.id === currentPage);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50" aria-label="Loading application">
+        <div className="w-16 h-16 border-4 border-indigo-500 border-dashed rounded-full animate-spin" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">

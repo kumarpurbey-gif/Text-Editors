@@ -30,7 +30,7 @@ const GDocsStyleEditor: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ height: '16rem' }} className="quill-manual-wrapper">
+    <div style={{ height: '20rem' }} className="quill-manual-wrapper">
        <style>{`
         .quill-manual-wrapper .ql-toolbar {
           border-top-left-radius: 0.375rem;

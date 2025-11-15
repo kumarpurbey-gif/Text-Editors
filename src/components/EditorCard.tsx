@@ -13,12 +13,12 @@ const EditorCard: React.FC<EditorCardProps> = ({ title, children }) => {
       </div>
       <div className="p-5 flex-grow bg-gray-50">
         {/* Tablet Frame */}
-        <div className="bg-gray-800 rounded-2xl p-4 shadow-lg w-full max-w-3xl mx-auto relative">
+        <div className="bg-gray-200 rounded-xl p-2 shadow-lg w-full max-w-3xl mx-auto relative">
            {/* Tablet camera dot */}
-          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rounded-full ring-1 ring-gray-700"></div>
+          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-400 rounded-full ring-1 ring-gray-300"></div>
 
           {/* Tablet Screen */}
-          <div className="bg-white rounded-lg overflow-hidden">
+          <div className="bg-white rounded-md overflow-hidden">
             {children}
           </div>
         </div>
