@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-// The bootstrap loader in index.html ensures window.ReactQuill is available.
-const ReactQuill = (window as any).ReactQuill;
-
 const GDocsStyleEditor: React.FC = () => {
+  const ReactQuill = (window as any).ReactQuill;
   const [value, setValue] = useState(
     `<h1>Google Docs Style Editor</h1><p>This editor has more features, like headings, code blocks, and colors, similar to a full document editor.</p><pre class="ql-syntax" spellcheck="false">function helloWorld() {
   console.log("Hello, world!");

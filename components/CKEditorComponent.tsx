@@ -4,9 +4,8 @@ declare global {
     interface Window { ClassicEditor: any; }
 }
 
-const ClassicEditor = window.ClassicEditor;
-
 const CKEditorComponent: React.FC = () => {
+    const ClassicEditor = window.ClassicEditor;
     const editorRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const CKEditorComponent: React.FC = () => {
                     });
             }
         };
-    }, []);
+    }, [ClassicEditor]);
 
     if (!ClassicEditor) {
         return <div>Initializing CKEditor... This should be brief.</div>;

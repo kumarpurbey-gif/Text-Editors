@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
 
-// The bootstrap loader in index.html ensures window.Draft is available.
-const { Editor, EditorState, RichUtils, ContentState } = (window as any).Draft || {};
-
 const DraftJsEditor: React.FC = () => {
+  // The bootstrap loader in index.html ensures window.Draft is available at render time.
+  const { Editor, EditorState, RichUtils, ContentState } = (window as any).Draft || {};
   const editorRef = useRef<any>(null);
 
   const [editorState, setEditorState] = useState(() => {
